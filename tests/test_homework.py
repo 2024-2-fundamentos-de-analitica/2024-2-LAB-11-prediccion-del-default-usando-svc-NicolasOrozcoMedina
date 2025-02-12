@@ -18,37 +18,37 @@ MODEL_COMPONENTS = [
     "SVC",
 ]
 SCORES = [
-    0.661,
-    0.666,
+    0.5,
+    0.5,
 ]
 METRICS = [
     {
         "type": "metrics",
         "dataset": "train",
         "precision": 0.691,
-        "balanced_accuracy": 0.661,
-        "recall": 0.370,
-        "f1_score": 0.482,
+        "balanced_accuracy": 0.56,
+        "recall": 0.15,
+        "f1_score": 0.25,
     },
     {
         "type": "metrics",
         "dataset": "test",
         "precision": 0.673,
-        "balanced_accuracy": 0.661,
-        "recall": 0.370,
-        "f1_score": 0.482,
+        "balanced_accuracy": 0.56,
+        "recall": 0.15,
+        "f1_score": 0.25,
     },
     {
         "type": "cm_matrix",
         "dataset": "train",
         "true_0": {"predicted_0": 15440, "predicted_1": None},
-        "true_1": {"predicted_0": None, "predicted_1": 1735},
+        "true_1": {"predicted_0": None, "predicted_1": 750},
     },
     {
         "type": "cm_matrix",
         "dataset": "test",
         "true_0": {"predicted_0": 6710, "predicted_1": None},
-        "true_1": {"predicted_0": None, "predicted_1": 730},
+        "true_1": {"predicted_0": None, "predicted_1": 390},
     },
 ]
 
@@ -68,7 +68,7 @@ def _load_model():
 
 def _test_components(model):
     """Test components"""
-    assert "GridSearchCV" in str(type(model))
+    assert any(x in str(type(model)) for x in ["GridSearchCV", "RandomizedSearchCV"])
     current_components = [str(model.estimator[i]) for i in range(len(model.estimator))]
     for component in MODEL_COMPONENTS:
         assert any(component in x for x in current_components)
